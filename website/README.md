@@ -24,6 +24,16 @@ npm run build
 npm run start
 ```
 
+## Deploy to GitHub Pages
+
+This project is configured for static export and GitHub Pages deployment.
+
+1. Push to the `main` branch.
+2. In GitHub repository settings, enable Pages from the `gh-pages` branch.
+3. GitHub Actions will build the site and publish the exported `out/` folder.
+
+If you change the repository name, update the `basePath` in `next.config.ts`.
+
 ## Structure
 
 - `app/page.tsx` - main page composition + GSAP setup

@@ -5,6 +5,7 @@ import { navItems } from "@/lib/portfolio-data";
 
 export default function Navbar() {
   const [active, setActive] = useState("#hero");
+  const [logoError, setLogoError] = useState(false);
 
   useEffect(() => {
     const sections = navItems
@@ -30,8 +31,22 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <nav className="mx-auto mt-4 flex w-[92%] max-w-5xl items-center justify-between rounded-full border border-white/10 bg-black/40 px-4 py-3 backdrop-blur-xl md:px-6">
-        <a href="#hero" className="font-display text-sm font-bold tracking-[0.2em] text-white">
-          SK
+        <a
+          href="#hero"
+          className="relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-[#1c3340]"
+          aria-label="Go to top"
+        >
+          {!logoError ? (
+            // Uses the local file at /public/Logo SK.jpg when available.
+            <img
+              src="/Logo%20SK.jpg"
+              alt="Sailendra Kamal"
+              className="h-full w-full object-cover"
+              onError={() => setLogoError(true)}
+            />
+          ) : (
+            <span className="font-display text-sm font-bold tracking-[0.2em] text-white">SK</span>
+          )}
         </a>
 
         <ul className="flex items-center gap-1 md:gap-2">

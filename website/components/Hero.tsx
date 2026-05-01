@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import AntiGravity from "./AntiGravity";
 
 export default function Hero() {
   return (
@@ -10,6 +11,7 @@ export default function Hero() {
       data-snap-section
     >
       <div className="orbital-bg" aria-hidden />
+      <AntiGravity count={14} />
       <div className="grid-pattern absolute inset-0 opacity-20" aria-hidden />
       <div className="section-grid-overlay" aria-hidden />
       <div

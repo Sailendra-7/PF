@@ -32,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${manrope.variable} ${spaceGrotesk.variable} bg-base text-text antialiased`}
       >
         {children}

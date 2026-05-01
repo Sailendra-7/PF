@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function About() {
@@ -25,11 +24,9 @@ export default function About() {
         className="premium-panel mt-8 grid gap-8 rounded-3xl p-7 shadow-glow md:grid-cols-2"
       >
         <div className="mouse-parallax overflow-hidden rounded-2xl border border-white/10" data-depth="0.05">
-          <Image
-            src="Profile 2.jpg"
+          <img
+            src="/Profile 2.jpg"
             alt="Abstract civil engineering analytics visual"
-            width={720}
-            height={520}
             loading="lazy"
             className="h-full w-full object-cover"
           />

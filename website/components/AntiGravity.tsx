@@ -92,9 +92,6 @@ export default function AntiGravity({ count = 22 }: { count?: number }) {
 
   return (
     <div ref={containerRef} className="absolute inset-0 pointer-events-none">
-      <div className="absolute left-1/2 top-[14%] z-[2] -translate-x-1/2 rounded-full border border-white/20 bg-black/30 px-4 py-2 text-[10px] uppercase tracking-[0.35em] text-white/80 backdrop-blur-md md:text-xs">
-        Anti-gravity mode
-      </div>
       {Array.from({ length: count }).map((_, i) => (
         <div
           key={i}

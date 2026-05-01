@@ -6,17 +6,13 @@ on:
       - main
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          node-version: 24
       
       - uses: actions/setup-node@v4
         with:
@@ -30,8 +26,12 @@ jobs:
         
       - run: touch ./website/out/.nojekyll
       
-      - uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./website/out
-          cname: sailendra-7.github.io
+      - name: Deploy to gh-pages
+        run: |
+          cd ./website/out
+          git init
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+          git add -A
+          git commit -m "Deploy to GitHub Pages"
+          git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:gh-pages

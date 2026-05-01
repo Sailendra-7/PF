@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === "production" ? "/PF" : "",
+  basePath: process.env.DEPLOY_ENV === "custom-domain" ? "" : "/PF",
 };
 
 export default nextConfig;

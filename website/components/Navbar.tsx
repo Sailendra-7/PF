@@ -37,9 +37,9 @@ export default function Navbar() {
           aria-label="Go to top"
         >
           {!logoError ? (
-            // Uses the local file at /public/logo-sk.jpg when available.
+            // Uses the local file at /public/Logo SK.jpg when available.
             <img
-              src="/logo-sk.jpg?v=1"
+              src="/Logo%20SK.jpg?v=2"
               alt="Sailendra Kamal"
               className="h-full w-full object-cover"
               onError={() => setLogoError(true)}

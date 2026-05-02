@@ -30,6 +30,7 @@ export default function Contact() {
           <input
             name="name"
             required
+            autoComplete="name"
             placeholder="Name"
             className="w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-sm outline-none transition focus:border-accent"
           />
@@ -37,6 +38,7 @@ export default function Contact() {
             name="email"
             required
             type="email"
+            autoComplete="email"
             placeholder="Email"
             className="w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-sm outline-none transition focus:border-accent"
           />

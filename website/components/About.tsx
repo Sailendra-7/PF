@@ -25,7 +25,7 @@ export default function About() {
       >
         <div className="mouse-parallax overflow-hidden rounded-2xl border border-white/10" data-depth="0.05">
           <img
-            src="/profile.jpg?v=1"
+            src="/profile-about.jpg?v=2"
             alt="Abstract civil engineering analytics visual"
             loading="lazy"
             className="h-full w-full object-cover"

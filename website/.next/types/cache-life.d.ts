@@ -1,4 +1,4 @@
-// Type definitions for Next.js cacheLife configs
+﻿// Type definitions for Next.js cacheLife configs
 
 declare module 'next/cache' {
   export { unstable_cache } from 'next/dist/server/web/spec-extension/unstable-cache'

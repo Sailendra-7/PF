@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 
@@ -53,7 +53,7 @@ export default function Hero() {
           transition={{ duration: 0.85, delay: 0.25 }}
           className="mt-8 max-w-2xl text-base text-muted md:text-xl"
         >
-          I am Sailendra Kamal, a 7th semester civil engineering student focused on
+          I am Sailendra Kamal, a 8th semester civil engineering student focused on
           sustainable design, data-informed planning, and practical field execution.
         </motion.p>
 

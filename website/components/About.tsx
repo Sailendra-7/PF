@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 
@@ -42,7 +42,7 @@ export default function About() {
             development.
           </p>
           <p className="muted-copy">
-            Currently in my 7th semester at Oxford College of Engineering and
+            Currently in my 8th semester at Oxford College of Engineering and
             Management, I have developed a strong foundation in structural analysis,
             geotechnical engineering, and construction management. I have worked on
             projects such as water tank design, foundation systems, and reinforced

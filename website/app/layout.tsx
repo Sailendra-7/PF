@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Manrope, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
@@ -15,7 +15,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Sailendra Kamal | Civil Engineering Portfolio",
   description:
-    "Portfolio of Sailendra Kamal, a 7th semester Civil Engineering student building resilient infrastructure and data-driven design solutions.",
+    "Portfolio of Sailendra Kamal, a 8th semester Civil Engineering student building resilient infrastructure and data-driven design solutions.",
   openGraph: {
     title: "Sailendra Kamal | Civil Engineering Portfolio",
     description:

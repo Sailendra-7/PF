@@ -1,4 +1,4 @@
-# Futuristic Portfolio (Next.js)
+﻿# Futuristic Portfolio (Next.js)
 
 A premium, space-tech inspired personal portfolio built with:
 

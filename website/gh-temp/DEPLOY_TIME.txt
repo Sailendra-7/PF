@@ -1,2 +1,0 @@
-Deployed: 2026-05-02 12:05 UTC
-Build: logo.jpg cache buster v3

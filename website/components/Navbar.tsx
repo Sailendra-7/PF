@@ -39,7 +39,7 @@ export default function Navbar() {
           {!logoError ? (
             // Uses the local file at /public/logo-sk.jpg when available.
             <img
-              src="/logo-sk.jpg"
+              src="/logo-sk.jpg?v=1"
               alt="Sailendra Kamal"
               className="h-full w-full object-cover"
               onError={() => setLogoError(true)}

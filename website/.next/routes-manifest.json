@@ -2,16 +2,8 @@
   "version": 3,
   "pages404": true,
   "caseSensitive": false,
-  "basePath": "/PF",
+  "basePath": "",
   "redirects": [
-    {
-      "source": "/PF",
-      "destination": "/PF/",
-      "basePath": false,
-      "internal": true,
-      "statusCode": 308,
-      "regex": "^/PF$"
-    },
     {
       "source": "/:file((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+)/",
       "destination": "/:file",

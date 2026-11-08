@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import type { Project } from "@/lib/content";
 import VoyageMap from "./VoyageMap";
 import ProjectCard from "./ProjectCard";
+import Sfx from "./Sfx";
 
 export default function Projects({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState("All");
@@ -17,6 +18,9 @@ export default function Projects({ projects }: { projects: Project[] }) {
 
   return (
     <section id="projects" className="section-shell">
+      <Sfx className="right-4 top-12 hidden text-6xl md:block" rotate={7}>
+        バーン!!
+      </Sfx>
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -24,7 +28,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
         transition={{ duration: 0.7 }}
       >
         <p className="eyebrow">The Voyage</p>
-        <h2 className="section-title">Selected projects and applied research.</h2>
+        <h2 className="section-title">Selected projects and applied research!</h2>
         <p className="muted-copy mt-3 max-w-xl">
           Every island is a project I have charted. Tap one to read its log entry.
         </p>

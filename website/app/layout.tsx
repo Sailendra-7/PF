@@ -1,5 +1,5 @@
 ﻿import type { Metadata } from "next";
-import { Manrope, Pirata_One } from "next/font/google";
+import { Manrope, Luckiest_Guy, Rye } from "next/font/google";
 import "./globals.css";
 import { getProfile } from "@/lib/content";
 
@@ -9,10 +9,17 @@ const manrope = Manrope({
   display: "swap",
 });
 
-const pirata = Pirata_One({
+const luckiest = Luckiest_Guy({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-pirata",
+  variable: "--font-display",
+  display: "swap",
+});
+
+const rye = Rye({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-poster",
   display: "swap",
 });
 
@@ -30,7 +37,7 @@ export function generateMetadata(): Metadata {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${pirata.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${luckiest.variable} ${rye.variable}`}>
       <body className="antialiased">{children}</body>
     </html>
   );

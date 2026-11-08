@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import JollyRoger from "./JollyRoger";
 
 const items = [
   { id: "hero", label: "Home" },
@@ -49,11 +50,12 @@ export default function LogPoseNav({ name }: { name: string }) {
         className="wood mx-auto mt-3 flex w-[94%] max-w-5xl items-center justify-between rounded-xl px-3 py-2 md:px-5"
       >
         <a href="#hero" className="flex items-center gap-2" aria-label={`${name} — back to top`}>
-          <Compass angle={angle} />
-          <span className="hidden font-display text-xl text-straw sm:block">{name}</span>
+          <JollyRoger className="h-10 w-10 shrink-0" />
+          <span className="hidden font-display text-xl tracking-wide text-straw sm:block">{name}</span>
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
+          <ul className="flex items-center gap-1">
           {items.map((i) => (
             <li key={i.id}>
               <a
@@ -67,7 +69,9 @@ export default function LogPoseNav({ name }: { name: string }) {
               </a>
             </li>
           ))}
-        </ul>
+          </ul>
+          <span title="Log Pose"><Compass angle={angle} /></span>
+        </div>
 
         <button
           type="button"

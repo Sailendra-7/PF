@@ -27,6 +27,8 @@ export type Profile = {
   aboutPhoto: string;
   bio: string[];
   contactIntro: string;
+  dream: string;
+  devilFruit: string;
   email: string;
   phone: string;
   linkedin: string;
@@ -79,6 +81,8 @@ export function getProfile(): Profile {
     aboutPhoto: asString(p.aboutPhoto),
     bio: asStringList(p.bio),
     contactIntro: asString(p.contactIntro),
+    dream: asString(p.dream),
+    devilFruit: asString(p.devilFruit),
     email: asString(p.email),
     phone: asString(p.phone),
     linkedin: asString(p.linkedin),

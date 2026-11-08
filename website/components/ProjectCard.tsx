@@ -16,7 +16,7 @@ const ICONS: Record<string, typeof Ruler> = {
 export default function ProjectCard({ project }: { project: Project }) {
   const Icon = ICONS[project.category] ?? Ruler;
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-lg border-2 border-wood bg-sea-900 shadow-card transition-transform hover:-translate-y-1.5">
+    <article className="group relative flex flex-col overflow-hidden rounded-lg border-[3px] border-ink bg-sea-900 shadow-[6px_6px_0_#2a1a0c] transition-transform hover:-translate-y-1.5">
       {project.featured ? (
         <span className="absolute left-0 top-4 z-10 flex items-center gap-1 rounded-r bg-flag px-3 py-1 text-[0.7rem] font-extrabold uppercase tracking-widest text-parchment shadow">
           <Star size={12} aria-hidden /> Featured

@@ -28,7 +28,8 @@ const config: Config = {
         flag: "#c8102e",
       },
       fontFamily: {
-        display: ["var(--font-pirata)", "serif"],
+        display: ["var(--font-display)", "Impact", "sans-serif"],
+        poster: ["var(--font-poster)", "serif"],
         body: ["var(--font-manrope)", "sans-serif"],
       },
       boxShadow: {

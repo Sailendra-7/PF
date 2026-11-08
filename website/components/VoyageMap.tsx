@@ -185,6 +185,17 @@ export default function VoyageMap({ stops, vertical = false }: { stops: Stop[]; 
           <text y="-38" textAnchor="middle" fontSize="12" fontWeight="800" fill="#5b3a1e">N</text>
         </g>
 
+        {/* whirlpool */}
+        <g transform={`translate(${vertical ? 52 : 62} ${h - 52})`} opacity="0.55" fill="none" stroke="#2f7fa8" strokeWidth="3" strokeLinecap="round">
+          <path d="M0 0 a5 5 0 1 1 5 5 a11 11 0 1 1 -11 -11 a18 18 0 1 1 18 18 a26 26 0 1 1 -26 -26" />
+        </g>
+        {/* sea king */}
+        <g transform={`translate(${vertical ? w - 120 : w - 230} ${h - 40})`} opacity="0.6">
+          <path d="M0 0 q14 -30 28 0 q14 -30 28 0 q14 -30 28 0" fill="none" stroke="#3b7a52" strokeWidth="7" strokeLinecap="round" />
+          <circle cx="92" cy="-8" r="9" fill="#3b7a52" />
+          <circle cx="95" cy="-10" r="2.2" fill="#f4ead2" />
+        </g>
+
         {/* the route */}
         <path ref={pathRef} d={d} fill="none" stroke="#c8102e" strokeWidth="4" strokeDasharray="4 12" strokeLinecap="round" />
 

@@ -4,6 +4,8 @@ import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
 import { Linkedin, Mail, Phone } from "lucide-react";
 import type { Profile } from "@/lib/content";
+import Sfx from "./Sfx";
+import JollyRoger from "./JollyRoger";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -73,10 +75,11 @@ export default function Contact({ profile }: { profile: Profile }) {
         transition={{ duration: 0.7 }}
       >
         <p className="eyebrow">Den Den Mushi</p>
-        <h2 className="section-title">Let us build something meaningful.</h2>
+        <h2 className="section-title">Let us build something meaningful!</h2>
       </motion.div>
 
-      <div className="parchment mt-10 grid gap-10 rounded-lg border-y-[10px] border-wood p-6 md:grid-cols-2 md:p-10">
+      <div className="parchment relative mt-12 grid gap-10 rounded-lg border-[3px] border-ink p-6 shadow-[8px_8px_0_#2a1a0c] md:grid-cols-2 md:p-10">
+        <JollyRoger className="absolute -right-4 -top-10 hidden w-24 rotate-12 drop-shadow-[0_5px_0_rgba(0,0,0,0.3)] md:block" />
         <form onSubmit={onSubmit} className="space-y-4">
           <input name="name" required autoComplete="name" placeholder="Your name" aria-label="Your name" className={field} />
           <input name="email" required type="email" autoComplete="email" placeholder="Your email" aria-label="Your email" className={field} />
@@ -93,7 +96,15 @@ export default function Contact({ profile }: { profile: Profile }) {
         </form>
 
         <div className="space-y-5">
-          <DenDenMushi />
+          <div className="relative">
+            <Sfx className="-top-2 left-0 text-3xl md:text-4xl" rotate={-6}>
+              ぷるぷるぷる…
+            </Sfx>
+            <div className="pt-6">
+              <DenDenMushi />
+            </div>
+            <p className="mt-1 text-center font-display text-lg text-flag">PURU PURU PURU…</p>
+          </div>
           <p className="leading-relaxed text-ink/90">{profile.contactIntro}</p>
           <ul className="space-y-3">
             {links.map(({ href, label, Icon, external }) => (

@@ -33,18 +33,18 @@ body {
   min-height: 100vh;
   font-family: var(--font-manrope), sans-serif;
   color: #f4ead2;
-  background-color: #04121f;
+  background-color: #0d5a96;
   background-image:
-    radial-gradient(ellipse at 50% 0, rgba(79, 163, 199, 0.22), transparent 700px),
-    linear-gradient(180deg, #071d33 0%, #04121f 40%, #030d17 100%);
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='28'><path d='M0 14 q12 -11 24 0 t24 0 t24 0 t24 0' fill='none' stroke='white' stroke-opacity='.08' stroke-width='2'/></svg>"),
+    linear-gradient(180deg, #0d5a96 0%, #0b4d86 30%, #093d70 62%, #062c52 100%);
 }
 
 h1,
 h2,
 h3 {
-  font-family: var(--font-pirata), serif;
+  font-family: var(--font-display), Impact, sans-serif;
   font-weight: 400;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 ::selection {
@@ -83,11 +83,13 @@ h3 {
 
 .section-title {
   margin-top: 0.5rem;
-  font-family: var(--font-pirata), serif;
-  font-size: clamp(2.25rem, 6vw, 3.75rem);
-  line-height: 1.05;
-  color: #f4ead2;
-  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.45);
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(2rem, 5.2vw, 3.4rem);
+  line-height: 1.12;
+  color: #fff3d1;
+  text-shadow: 3px 3px 0 #c8102e, 6px 6px 0 rgba(0, 0, 0, 0.35);
+  -webkit-text-stroke: 1.5px #2a1a0c;
+  paint-order: stroke fill;
 }
 
 .muted-copy {
@@ -245,4 +247,109 @@ h3 {
   margin: 1.2em 0;
   border-radius: 6px;
   max-width: 100%;
+}
+
+/* ---------- One Piece scenery ---------- */
+.sky {
+  background:
+    radial-gradient(circle at 12% 18%, #fff7c2 0 5%, rgba(255, 236, 140, 0.55) 9%, transparent 22%),
+    linear-gradient(180deg, #1f93d6 0%, #4fb9ee 38%, #a9e1f8 70%, #d8f3fc 100%);
+}
+
+@keyframes cloud-drift {
+  from {
+    transform: translateX(-30vw);
+  }
+  to {
+    transform: translateX(130vw);
+  }
+}
+
+.cloud {
+  position: absolute;
+  animation: cloud-drift linear infinite;
+  opacity: 0.95;
+  filter: drop-shadow(0 6px 0 rgba(120, 190, 225, 0.35));
+}
+
+@keyframes gull {
+  0%,
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+  50% {
+    transform: translateY(-8px) scaleY(0.7);
+  }
+}
+
+.gull {
+  animation: gull 2.4s ease-in-out infinite;
+}
+
+@keyframes sail {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2.5deg);
+  }
+}
+
+.ship-sail {
+  animation: sail 5.5s ease-in-out infinite;
+  transform-origin: 50% 85%;
+}
+
+@keyframes flag-wave {
+  0%,
+  100% {
+    transform: skewY(0deg) scaleX(1);
+  }
+  50% {
+    transform: skewY(-4deg) scaleX(0.94);
+  }
+}
+
+.flag-wave {
+  animation: flag-wave 2.2s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+/* manga sound effect lettering */
+.sfx {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  user-select: none;
+  font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", var(--font-display), sans-serif;
+  font-weight: 900;
+  line-height: 1;
+  color: #c8102e;
+  -webkit-text-stroke: 2px #fff3d1;
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 #2a1a0c;
+  transform: rotate(var(--r, -8deg));
+}
+
+/* thick comic outline for text on bright sky */
+.pop-text {
+  color: #fff3d1;
+  -webkit-text-stroke: 2px #0a2540;
+  paint-order: stroke fill;
+  text-shadow: 4px 5px 0 #0a2540;
+}
+
+/* poster pinned with tape */
+.tape::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 70px;
+  height: 24px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(232, 178, 58, 0.75);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }

@@ -1,76 +1,71 @@
-﻿"use client";
+"use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import type { Project } from "@/lib/content";
-import VoyageMap from "./VoyageMap";
 import ProjectCard from "./ProjectCard";
-import Sfx from "./Sfx";
+import Reveal from "./Reveal";
+
+/* Desktop span rhythm per row of two: 4+2, 2+4, 3+3. A lone last card goes full width. */
+const SPANS = [4, 2, 2, 4, 3, 3];
+const LG: Record<number, string> = {
+  2: "lg:col-span-2",
+  3: "lg:col-span-3",
+  4: "lg:col-span-4",
+  6: "lg:col-span-6",
+};
 
 export default function Projects({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState("All");
-  const categories = useMemo(
-    () => ["All", ...Array.from(new Set(projects.map((p) => p.category)))],
-    [projects]
-  );
+  const categories = useMemo(() => Array.from(new Set(projects.map((p) => p.category))), [projects]);
   const shown = filter === "All" ? projects : projects.filter((p) => p.category === filter);
-  const stops = projects.map(({ slug, title, category }) => ({ slug, title, category }));
 
   return (
-    <section id="projects" className="section-shell">
-      <Sfx className="right-4 top-12 hidden text-6xl md:block" rotate={7}>
-        バーン!!
-      </Sfx>
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.7 }}
-      >
-        <p className="eyebrow">The Voyage</p>
-        <h2 className="section-title">Selected projects and applied research!</h2>
-        <p className="muted-copy mt-3 max-w-xl">
-          Every island is a project I have charted. Tap one to read its log entry.
-        </p>
-      </motion.div>
-
-      <div className="mt-10">
-        <div className="hidden md:block">
-          <VoyageMap stops={stops} />
-        </div>
-        <div className="mx-auto max-w-sm md:hidden">
-          <VoyageMap stops={stops} vertical />
-        </div>
-      </div>
-
-      {projects.length > 0 ? (
-        <>
-          <div className="mt-14 flex flex-wrap items-center gap-2" role="group" aria-label="Filter projects by category">
-            {categories.length > 2 &&
-              categories.map((c) => (
+    <section id="projects" className="wrap section-y">
+      <Reveal>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <h2 className="h-section">Selected projects</h2>
+          {categories.length > 1 ? (
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Filter projects by category">
+              {["All", ...categories].map((c) => (
                 <button
                   key={c}
                   type="button"
-                  onClick={() => setFilter(c)}
                   aria-pressed={filter === c}
-                  className={`rounded-md border-2 px-4 py-1.5 text-sm font-bold transition-colors ${
-                    filter === c
-                      ? "border-straw bg-straw text-ink"
-                      : "border-parchment/30 text-parchment/85 hover:border-straw"
+                  onClick={() => setFilter(c)}
+                  className={`rounded-full px-4 py-2 text-sm transition duration-500 ease-out ${
+                    filter === c ? "bg-ink text-bg" : "text-muted ring-1 ring-inset ring-line/20 hover:text-ink"
                   }`}
                 >
                   {c}
                 </button>
               ))}
-          </div>
+            </div>
+          ) : null}
+        </div>
+      </Reveal>
 
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {shown.map((p) => (
-              <ProjectCard key={p.slug} project={p} />
-            ))}
-          </div>
-        </>
-      ) : null}
+      {projects.length === 0 ? (
+        <p className="mt-12 rounded-2xl border border-dashed border-line/25 p-10 text-center text-muted">
+          Projects will appear here once they are added in the admin panel.
+        </p>
+      ) : (
+        <div key={filter} className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
+          {shown.map((p, i) => {
+            const base = SPANS[i % SPANS.length];
+            const lonely = i === shown.length - 1 && i % 2 === 0;
+            const span = lonely ? 6 : base;
+            return (
+              <Reveal
+                key={p.slug}
+                delay={(i % 2) * 0.08}
+                className={`${lonely ? "md:col-span-2" : "md:col-span-1"} ${LG[span]}`}
+              >
+                <ProjectCard project={p} large={span >= 4} />
+              </Reveal>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }

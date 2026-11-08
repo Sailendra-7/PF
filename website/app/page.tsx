@@ -1,26 +1,26 @@
-﻿import { getProfile, getProjects, getSkillGroups } from "@/lib/content";
-import LogPoseNav from "@/components/LogPoseNav";
+import { getProfile, getProjects, getSkillGroups } from "@/lib/content";
+import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
 import Projects from "@/components/Projects";
-import Skills from "@/components/Skills";
+import About from "@/components/About";
+import Toolbox from "@/components/Toolbox";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   const profile = getProfile();
-  const projects = getProjects();
-  const skillGroups = getSkillGroups();
 
   return (
-    <main className="relative overflow-x-clip">
-      <LogPoseNav name={profile.name} />
-      <Hero profile={profile} />
-      <About profile={profile} />
-      <Projects projects={projects} />
-      <Skills groups={skillGroups} />
-      <Contact profile={profile} />
-      <Footer name={profile.name} />
-    </main>
+    <>
+      <Nav name={profile.name} />
+      <main>
+        <Hero profile={profile} />
+        <Projects projects={getProjects()} />
+        <About profile={profile} />
+        <Toolbox groups={getSkillGroups()} />
+        <Contact profile={profile} />
+      </main>
+      <Footer name={profile.name} role={profile.role} email={profile.email} />
+    </>
   );
 }

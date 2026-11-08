@@ -1,19 +1,7 @@
 {
   "groups": [
-    {
-      "crewRole": "Shipwright",
-      "name": "Structural Analysis & Design",
-      "items": ["ETABS", "SAFE", "RCDC"]
-    },
-    {
-      "crewRole": "Navigator",
-      "name": "Surveying & Road Design",
-      "items": ["Surveying (Total Station)", "Road Design (SW Road)"]
-    },
-    {
-      "crewRole": "Artist",
-      "name": "Drafting & Visualization",
-      "items": ["AutoCAD", "SketchUp", "Lumion"]
-    }
+    { "name": "Analysis and design", "items": ["ETABS", "SAFE", "RCDC"] },
+    { "name": "Drafting and visualization", "items": ["AutoCAD", "SketchUp", "Lumion"] },
+    { "name": "Survey and roads", "items": ["Surveying (Total Station)", "Road Design (SW Road)"] }
   ]
 }

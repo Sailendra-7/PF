@@ -17,25 +17,23 @@ export const CATEGORIES = [
 
 export type Profile = {
   name: string;
-  epithet: string;
   role: string;
-  bounty: string;
   tagline: string;
+  intro: string;
   semester: string;
   college: string;
   portrait: string;
   aboutPhoto: string;
   bio: string[];
+  focus: string[];
   contactIntro: string;
-  dream: string;
-  devilFruit: string;
   email: string;
   phone: string;
   linkedin: string;
   formEndpoint: string;
 };
 
-export type SkillGroup = { crewRole: string; name: string; items: string[] };
+export type SkillGroup = { name: string; items: string[] };
 
 export type Project = {
   slug: string;
@@ -71,18 +69,16 @@ export function getProfile(): Profile {
   const p = readJson<Profile>("profile.json");
   return {
     name: asString(p.name, "Your Name"),
-    epithet: asString(p.epithet),
     role: asString(p.role),
-    bounty: asString(p.bounty),
     tagline: asString(p.tagline),
+    intro: asString(p.intro),
     semester: asString(p.semester),
     college: asString(p.college),
     portrait: asString(p.portrait),
     aboutPhoto: asString(p.aboutPhoto),
     bio: asStringList(p.bio),
+    focus: asStringList(p.focus),
     contactIntro: asString(p.contactIntro),
-    dream: asString(p.dream),
-    devilFruit: asString(p.devilFruit),
     email: asString(p.email),
     phone: asString(p.phone),
     linkedin: asString(p.linkedin),
@@ -93,12 +89,8 @@ export function getProfile(): Profile {
 export function getSkillGroups(): SkillGroup[] {
   const s = readJson<{ groups: SkillGroup[] }>("skills.json");
   return (Array.isArray(s.groups) ? s.groups : [])
-    .map((g) => ({
-      crewRole: asString(g?.crewRole),
-      name: asString(g?.name),
-      items: asStringList(g?.items),
-    }))
-    .filter((g) => g.name || g.items.length);
+    .map((g) => ({ name: asString(g?.name), items: asStringList(g?.items) }))
+    .filter((g) => g.name && g.items.length);
 }
 
 function slugify(s: string) {
@@ -109,6 +101,7 @@ function slugify(s: string) {
 }
 
 function toIsoDate(v: unknown) {
+  if (v == null || v === "") return "";
   const d = v instanceof Date ? v : new Date(asString(v));
   return Number.isNaN(d.getTime()) ? "" : d.toISOString().slice(0, 10);
 }

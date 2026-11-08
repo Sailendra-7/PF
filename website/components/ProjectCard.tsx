@@ -1,64 +1,43 @@
 import Link from "next/link";
-import { Building2, Droplets, Layers, Map, Mountain, Route, Ruler, Star } from "lucide-react";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import type { Project } from "@/lib/content";
-import { asset } from "@/lib/assets";
+import Cover from "./Cover";
 
-const ICONS: Record<string, typeof Ruler> = {
-  Structural: Building2,
-  Transportation: Route,
-  Materials: Layers,
-  Geotech: Mountain,
-  Water: Droplets,
-  Survey: Map,
-  Other: Ruler,
-};
-
-export default function ProjectCard({ project }: { project: Project }) {
-  const Icon = ICONS[project.category] ?? Ruler;
+export default function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
+  const year = project.date.slice(0, 4);
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-lg border-[3px] border-ink bg-sea-900 shadow-[6px_6px_0_#2a1a0c] transition-transform hover:-translate-y-1.5">
-      {project.featured ? (
-        <span className="absolute left-0 top-4 z-10 flex items-center gap-1 rounded-r bg-flag px-3 py-1 text-[0.7rem] font-extrabold uppercase tracking-widest text-parchment shadow">
-          <Star size={12} aria-hidden /> Featured
-        </span>
-      ) : null}
-
-      <div className="relative aspect-[16/9] overflow-hidden bg-sea-800">
-        {project.cover ? (
-          <img
-            src={asset(project.cover)}
-            alt=""
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_20%,#1b5e86,#0c2b4a_70%)]">
-            <Icon size={56} className="text-straw/80" strokeWidth={1.4} aria-hidden />
+    <article className="group relative h-full">
+      <div className="bezel h-full transition duration-500 ease-out group-hover:-translate-y-1">
+        <div className="bezel-core flex h-full flex-col">
+          <Cover src={project.cover} category={project.category} className={large ? "aspect-[16/9]" : "aspect-[16/10]"} />
+          <div className="flex flex-1 flex-col p-6 md:p-7">
+            <p className="label flex items-center justify-between gap-4">
+              <span>{project.category}</span>
+              {year ? <span>{year}</span> : null}
+            </p>
+            <h3 className={`mt-3 font-semibold tracking-tight ${large ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"}`}>
+              <Link href={`/projects/${project.slug}/`} className="after:absolute after:inset-0">
+                {project.title}
+              </Link>
+            </h3>
+            {project.summary ? <p className="mt-3 line-clamp-3 text-muted">{project.summary}</p> : null}
+            {project.tools.length ? (
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {project.tools.slice(0, 4).map((t) => (
+                  <li key={t} className="rounded-md border border-line/15 px-2.5 py-1 font-mono text-xs text-muted">
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <div className="mt-auto flex items-center justify-between pt-7 text-sm font-medium">
+              <span>View project</span>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-ink/[0.07] transition duration-500 ease-out group-hover:bg-accent group-hover:text-on-accent">
+                <ArrowUpRight size={16} weight="light" />
+              </span>
+            </div>
           </div>
-        )}
-      </div>
-
-      <div className="flex flex-1 flex-col p-5">
-        <p className="eyebrow !text-[0.68rem]">
-          {project.category}
-          {project.location ? <span className="text-sea-200/70"> · {project.location}</span> : null}
-        </p>
-        <h3 className="mt-2 text-2xl leading-tight text-parchment">
-          <Link href={`/projects/${project.slug}/`} className="after:absolute after:inset-0">
-            {project.title}
-          </Link>
-        </h3>
-        <p className="muted-copy mt-3 flex-1 text-sm">{project.summary}</p>
-        {project.tools.length ? (
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {project.tools.slice(0, 4).map((t) => (
-              <li key={t} className="rounded border border-parchment/25 px-2 py-0.5 text-xs text-parchment/85">
-                {t}
-              </li>
-            ))}
-          </ul>
-        ) : null}
-        <p className="mt-5 text-sm font-extrabold text-straw">Read the log entry →</p>
+        </div>
       </div>
     </article>
   );

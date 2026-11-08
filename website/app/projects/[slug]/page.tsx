@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, MapPin, Calendar } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { getProfile, getProject, getProjects } from "@/lib/content";
 import { asset } from "@/lib/assets";
+import Nav from "@/components/Nav";
+import Cover from "@/components/Cover";
 import Footer from "@/components/Footer";
 
 type Params = { slug: string };
@@ -25,105 +27,116 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   const project = getProject(slug);
   if (!project) notFound();
 
+  const profile = getProfile();
   const all = getProjects();
-  const i = all.findIndex((p) => p.slug === slug);
-  const next = all[(i + 1) % all.length];
-  const name = getProfile().name;
+  const next = all[(all.findIndex((p) => p.slug === slug) + 1) % all.length];
+
+  const meta = [
+    { k: "Category", v: project.category },
+    project.location && { k: "Location", v: project.location },
+    project.date && {
+      k: "Date",
+      v: new Date(project.date).toLocaleDateString("en", { year: "numeric", month: "long", timeZone: "UTC" }),
+    },
+  ].filter(Boolean) as { k: string; v: string }[];
 
   return (
     <>
-      <main className="section-shell max-w-4xl pt-10 md:pt-14">
-        <Link href="/#projects" className="inline-flex items-center gap-2 text-sm font-bold text-straw hover:underline">
-          <ArrowLeft size={16} aria-hidden /> Back to the map
+      <Nav name={profile.name} />
+      <main className="wrap pb-24 pt-32 md:pb-32 md:pt-40">
+        <Link
+          href="/#projects"
+          className="group inline-flex items-center gap-2 text-sm text-muted transition duration-500 ease-out hover:text-ink"
+        >
+          <ArrowLeft size={16} weight="light" className="transition duration-500 ease-out group-hover:-translate-x-1" />
+          All projects
         </Link>
 
-        <p className="eyebrow mt-8">Log entry · {project.category}</p>
-        <h1 className="section-title">{project.title}</h1>
-        <p className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-sea-200">
-          {project.location && (
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin size={15} aria-hidden /> {project.location}
-            </span>
-          )}
-          {project.date && (
-            <span className="inline-flex items-center gap-1.5">
-              <Calendar size={15} aria-hidden />
-              {new Date(project.date).toLocaleDateString("en", { year: "numeric", month: "long", timeZone: "UTC" })}
-            </span>
-          )}
-        </p>
+        <h1 className="mt-8 max-w-[22ch] text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
+          {project.title}
+        </h1>
+        {project.summary ? (
+          <p className="mt-6 max-w-[60ch] text-xl leading-relaxed text-muted">{project.summary}</p>
+        ) : null}
 
-        {project.cover && (
-          <img
-            src={asset(project.cover)}
-            alt=""
-            className="mt-8 w-full rounded-lg border-4 border-wood object-cover shadow-card"
-          />
-        )}
+        <dl className="mt-10 grid divide-y divide-line/10 rounded-2xl ring-1 ring-line/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          {meta.map(({ k, v }) => (
+            <div key={k} className="px-5 py-4">
+              <dt className="label">{k}</dt>
+              <dd className="mt-1.5 font-medium leading-snug">{v}</dd>
+            </div>
+          ))}
+        </dl>
 
-        <article className="parchment mt-8 rounded-lg border-y-[10px] border-wood p-6 md:p-10">
-          {project.summary && <p className="font-display text-2xl leading-snug">{project.summary}</p>}
+        <div className="bezel mt-8">
+          <div className="bezel-core">
+            <Cover src={project.cover} category={project.category} className={project.cover ? "aspect-[16/9]" : "aspect-[21/5]"} />
+          </div>
+        </div>
 
-          {project.html.trim() && (
-            <div className="prose-log mt-6" dangerouslySetInnerHTML={{ __html: project.html }} />
-          )}
+        <div className="mt-16 grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            {project.html.trim() ? <div className="prose-body" dangerouslySetInnerHTML={{ __html: project.html }} /> : null}
 
-          {project.highlights.length > 0 && (
-            <>
-              <h2 className="mt-8 text-3xl text-flag">Key findings</h2>
-              <ul className="mt-3 space-y-2">
-                {project.highlights.map((h) => (
-                  <li key={h} className="flex gap-3 leading-relaxed">
-                    <span aria-hidden className="mt-2 h-2 w-2 shrink-0 rotate-45 bg-flag" />
-                    {h}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
+            {project.highlights.length > 0 ? (
+              <section className={project.html.trim() ? "mt-14" : ""}>
+                <h2 className="text-2xl font-semibold tracking-tight">Key findings</h2>
+                <ul className="mt-6 space-y-4">
+                  {project.highlights.map((h) => (
+                    <li key={h} className="flex gap-4 text-lg leading-relaxed text-ink/85">
+                      <span aria-hidden className="mt-3 h-px w-5 shrink-0 bg-accent" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
+          </div>
 
-          {project.tools.length > 0 && (
-            <>
-              <h2 className="mt-8 text-3xl text-flag">Tools &amp; methods</h2>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {project.tools.map((t) => (
-                  <li key={t} className="rounded border-2 border-ink/70 px-3 py-1 text-sm font-bold">
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </article>
+          {project.tools.length > 0 ? (
+            <aside className="lg:col-span-4">
+              <div className="lg:sticky lg:top-28">
+                <h2 className="label">Tools and methods</h2>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {project.tools.map((t) => (
+                    <li key={t} className="rounded-md border border-line/15 px-3 py-1.5 font-mono text-sm">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
+          ) : null}
+        </div>
 
-        {project.gallery.length > 0 && (
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        {project.gallery.length > 0 ? (
+          <div className="mt-20 grid gap-5 sm:grid-cols-2">
             {project.gallery.map((src) => (
-              <img
-                key={src}
-                src={asset(src)}
-                alt=""
-                loading="lazy"
-                className="w-full rounded-lg border-4 border-wood object-cover shadow-card"
-              />
+              <div key={src} className="bezel">
+                <div className="bezel-core">
+                  <img src={asset(src)} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+                </div>
+              </div>
             ))}
           </div>
-        )}
+        ) : null}
 
-        {all.length > 1 && (
+        {all.length > 1 ? (
           <Link
             href={`/projects/${next.slug}/`}
-            className="sea-panel mt-12 flex items-center justify-between gap-4 rounded-lg p-5 transition-colors hover:border-straw/60"
+            className="group mt-24 flex items-center justify-between gap-6 rounded-2xl p-6 ring-1 ring-line/15 transition duration-500 ease-out hover:bg-ink/[0.04] md:p-8"
           >
             <span>
-              <span className="eyebrow block">Next island</span>
-              <span className="font-display text-2xl text-parchment">{next.title}</span>
+              <span className="label block">Next project</span>
+              <span className="mt-2 block text-2xl font-semibold tracking-tight md:text-3xl">{next.title}</span>
             </span>
-            <span aria-hidden className="text-2xl text-straw">→</span>
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink/[0.07] transition duration-500 ease-out group-hover:bg-accent group-hover:text-on-accent">
+              <ArrowUpRight size={18} weight="light" />
+            </span>
           </Link>
-        )}
+        ) : null}
       </main>
-      <Footer name={name} />
+      <Footer name={profile.name} role={profile.role} email={profile.email} />
     </>
   );
 }

@@ -1,78 +1,70 @@
-"use client";
-
-import { motion } from "framer-motion";
 import type { Profile } from "@/lib/content";
 import { asset } from "@/lib/assets";
-import Sfx from "./Sfx";
-import JollyRoger from "./JollyRoger";
+import Reveal from "./Reveal";
 
 export default function About({ profile }: { profile: Profile }) {
-  const stats = [
-    { k: "Rank", v: `${profile.semester} Civil Engineering` },
-    { k: "Crew", v: profile.college },
-    profile.dream && { k: "Dream", v: profile.dream },
-    profile.devilFruit && { k: "Devil Fruit", v: profile.devilFruit },
+  const [lead, ...rest] = profile.bio;
+  const rows = [
+    profile.semester && { k: "Studying", v: `Civil engineering, ${profile.semester.toLowerCase()}` },
+    profile.college && { k: "College", v: profile.college },
   ].filter(Boolean) as { k: string; v: string }[];
 
   return (
-    <section id="about" className="section-shell">
-      <Sfx className="right-4 top-10 hidden text-6xl md:block" rotate={9}>
-        ゴゴゴ
-      </Sfx>
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.7 }}
-      >
-        <p className="eyebrow">Captain&apos;s Log</p>
-        <h2 className="section-title">An engineer on a mission!</h2>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 28 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.8 }}
-        className="parchment mt-12 grid gap-8 rounded-lg border-[3px] border-ink p-6 shadow-[8px_8px_0_#2a1a0c] md:grid-cols-[0.8fr_1.2fr] md:gap-12 md:p-10"
-      >
-        {profile.aboutPhoto ? (
-          <figure className="tape relative mx-auto w-full max-w-xs -rotate-2 self-start bg-white p-3 pb-10 shadow-card md:max-w-none">
-            <img
-              src={asset(profile.aboutPhoto)}
-              alt={`${profile.name} smiling`}
-              loading="lazy"
-              width={900}
-              height={1200}
-              className="aspect-[4/5] w-full object-cover object-top"
-            />
-            <figcaption className="absolute inset-x-0 bottom-2 text-center font-display text-lg text-ink">
-              {profile.name}
-            </figcaption>
-            <JollyRoger className="absolute -bottom-7 -right-6 w-20 rotate-[14deg] drop-shadow-[0_4px_0_rgba(0,0,0,0.3)]" />
-          </figure>
-        ) : null}
-
-        <div>
-          <dl className="grid gap-3 rounded-md border-[3px] border-ink bg-parchment-dark/50 p-4 sm:grid-cols-2">
-            {stats.map(({ k, v }) => (
-              <div key={k}>
-                <dt className="inline-block -rotate-1 bg-flag px-2 py-0.5 text-[0.65rem] font-extrabold uppercase tracking-widest text-parchment">
-                  {k}
-                </dt>
-                <dd className="mt-1 text-sm font-bold leading-snug">{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <div className="mt-6 space-y-5">
-            {profile.bio.map((para, i) => (
-              <p key={i} className="leading-relaxed text-ink/90">
+    <section id="about" className="wrap section-y">
+      <div className="grid gap-14 lg:grid-cols-12">
+        <Reveal className="lg:col-span-7">
+          <h2 className="h-section">About</h2>
+          {lead ? <p className="mt-8 max-w-[34ch] text-2xl font-medium leading-snug tracking-tight md:text-3xl">{lead}</p> : null}
+          <div className="mt-8 space-y-5">
+            {rest.map((para, i) => (
+              <p key={i} className="max-w-[62ch] text-lg leading-relaxed text-muted">
                 {para}
               </p>
             ))}
           </div>
-        </div>
-      </motion.div>
+          {profile.focus.length ? (
+            <div className="mt-10">
+              <p className="label">Focus areas</p>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {profile.focus.map((f) => (
+                  <li key={f} className="rounded-full px-4 py-2 text-sm ring-1 ring-inset ring-line/20">
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </Reveal>
+
+        <Reveal delay={0.1} className="lg:col-span-5">
+          <div className="lg:sticky lg:top-28">
+            {profile.aboutPhoto ? (
+              <div className="bezel">
+                <div className="bezel-core">
+                  <img
+                    src={asset(profile.aboutPhoto)}
+                    alt={`${profile.name}`}
+                    loading="lazy"
+                    width={900}
+                    height={1200}
+                    className="aspect-[4/5] w-full object-cover object-top"
+                  />
+                </div>
+              </div>
+            ) : null}
+            {rows.length ? (
+              <dl className="mt-6 divide-y divide-line/10 rounded-2xl ring-1 ring-line/10">
+                {rows.map(({ k, v }) => (
+                  <div key={k} className="grid grid-cols-[6.5rem_1fr] gap-4 px-5 py-4">
+                    <dt className="label pt-0.5">{k}</dt>
+                    <dd className="text-sm font-medium leading-snug">{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

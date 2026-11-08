@@ -1,7 +1,6 @@
 ---
 title: Detail Survey and Design of Hill Road (Maulakalika Temple Route)
 slug: hill-road-maulakalika
-date: 2025-01-02
 location: Maulakalika Temple, Nepal
 category: Transportation
 summary: Detailed survey and road design from the base of Maulakalika Temple to the temple area, including route planning and geometric design.

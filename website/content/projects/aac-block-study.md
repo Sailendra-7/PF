@@ -1,8 +1,6 @@
 ---
 title: AAC Block Study
 slug: aac-block-study
-date: 2025-01-01
-location: Oxford College of Engineering and Management
 category: Materials
 summary: College project on the properties, application, and practical use of AAC blocks in modern construction.
 cover: ""

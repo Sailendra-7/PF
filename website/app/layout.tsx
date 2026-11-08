@@ -1,32 +1,22 @@
-﻿import type { Metadata } from "next";
-import { Manrope, Luckiest_Guy, Rye } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { getProfile } from "@/lib/content";
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-  display: "swap",
-});
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 
-const luckiest = Luckiest_Guy({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-display",
-  display: "swap",
-});
-
-const rye = Rye({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-poster",
-  display: "swap",
-});
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f1f2f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1214" },
+  ],
+};
 
 export function generateMetadata(): Metadata {
   const p = getProfile();
-  const title = `${p.name} | Civil Engineering Portfolio`;
-  const description = `${p.name}, ${p.role.toLowerCase()} at ${p.college}. ${p.tagline}`;
+  const title = `${p.name} | Civil Engineer`;
+  const description = `${p.name}, ${p.role.toLowerCase()} at ${p.college}. ${p.intro}`;
   return {
     title,
     description,
@@ -37,8 +27,8 @@ export function generateMetadata(): Metadata {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${luckiest.variable} ${rye.variable}`}>
-      <body className="antialiased">{children}</body>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+      <body className="bg-bg font-sans text-ink antialiased">{children}</body>
     </html>
   );
 }

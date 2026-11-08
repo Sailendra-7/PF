@@ -1,7 +1,30 @@
 {
   "groups": [
-    { "name": "Analysis and design", "items": ["ETABS", "SAFE", "RCDC"] },
-    { "name": "Drafting and visualization", "items": ["AutoCAD", "SketchUp", "Lumion"] },
-    { "name": "Survey and roads", "items": ["Surveying (Total Station)", "Road Design (SW Road)"] }
+    {
+      "name": "Analysis and design",
+      "items": [
+        "ETABS",
+        "SAFE",
+        "RCDC",
+        "IDEA StatiCA"
+      ]
+    },
+    {
+      "name": "Drafting and visualization",
+      "items": [
+        "AutoCAD",
+        "SketchUp",
+        "Lumion",
+        "D5",
+        "Revit"
+      ]
+    },
+    {
+      "name": "Survey and roads",
+      "items": [
+        "Surveying (Total Station)",
+        "Road Design (SW Road)"
+      ]
+    }
   ]
 }

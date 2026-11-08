@@ -48,15 +48,30 @@ collections:
           - { name: intro, label: Intro under the headline, widget: text, hint: "About 20 words." }
           - { name: semester, label: Semester, widget: string }
           - { name: college, label: College, widget: string }
-          - { name: portrait, label: Hero photo, widget: image }
-          - { name: aboutPhoto, label: About photo, widget: image }
+          - { name: aboutPhoto, label: Photo (shown in About), widget: image, required: false }
           - { name: bio, label: About paragraphs, widget: list }
           - { name: focus, label: Focus areas, widget: list }
           - { name: contactIntro, label: Contact intro text, widget: text }
           - { name: email, label: Email, widget: string }
           - { name: phone, label: Phone, widget: string }
           - { name: linkedin, label: LinkedIn URL, widget: string }
-          - { name: formEndpoint, label: Form service URL (optional), widget: string, required: false, hint: "Formspree / Web3Forms URL. Leave empty to open the visitor's email app instead." }
+          - { name: cv, label: Resume / CV (PDF), widget: file, required: false, hint: "Adds a download link in Contact." }
+          - { name: siteUrl, label: Website address (optional), widget: string, required: false, hint: "e.g. https://yourname.com, used for search engines." }
+          - { name: description, label: Search description (optional), widget: text, required: false }
+      - name: experience
+        label: Education and experience
+        file: website/content/experience.json
+        format: json
+        fields:
+          - name: items
+            label: Entries
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: when, label: When, widget: string, hint: "e.g. 2022 - 2026 or Summer 2025" }
+              - { name: title, label: Place or title, widget: string }
+              - { name: role, label: Role or program, widget: string }
+              - { name: body, label: Description, widget: text, required: false }
       - name: skills
         label: Software and tools
         file: website/content/skills.json

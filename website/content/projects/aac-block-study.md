@@ -2,7 +2,7 @@
 title: AAC Block Study
 category: Materials
 summary: College project on the properties, application, and practical use of AAC blocks in modern construction.
-cover: /uploads/IMG_20250530_143229.jpg
+cover: /uploads/IMG_20250530_143229-1.jpg
 location: ''
 date: ''
 tools:
@@ -14,9 +14,9 @@ highlights:
   - Documented cost and productivity implications for low-rise and mid-rise construction.
   - Presented recommendations for sustainable and efficient walling systems in local context.
 gallery:
-  - /uploads/IMG_20250530_143414.jpg
-  - /uploads/IMG_20250530_143348.jpg
-  - /uploads/IMG_20250530_143355.jpg
+  - /uploads/IMG_20250530_143414-1.jpg
+  - /uploads/IMG_20250530_143348-1.jpg
+  - /uploads/IMG_20250530_143355-1.jpg
 featured: true
 order: 1
 slug: aac-block-study

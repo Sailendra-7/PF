@@ -3,7 +3,7 @@ title: AAC Block Study
 category: Materials
 summary: College project on the properties, application, and practical use of AAC blocks in modern construction.
 cover: /uploads/IMG_20250530_143229-1.jpg
-location: ''
+location: Green AAC Block Pvt.Ltd located  in Khairehni-4, Chainpur within the Chitwan District of Nepal
 date: ''
 tools:
   - Material Study

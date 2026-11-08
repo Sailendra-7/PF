@@ -7,8 +7,6 @@ backend:
 media_folder: website/public/uploads
 public_folder: /uploads
 
-site_url: /
-display_url: /
 locale: en
 
 collections:

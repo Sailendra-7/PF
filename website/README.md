@@ -1,46 +1,55 @@
-﻿# Futuristic Portfolio (Next.js)
+﻿# Sailendra Kamal: One Piece–themed Civil Engineering Portfolio
 
-A premium, space-tech inspired personal portfolio built with:
+Next.js (static export) + Tailwind + Framer Motion + GSAP, deployed to GitHub Pages.
+All content lives in `content/` and is editable from a web admin panel. No code needed.
 
-- Next.js (App Router)
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- GSAP + ScrollTrigger
+## Adding or editing projects (no code)
 
-## Run Locally
+1. Go to **`<your-site>/admin/`**.
+2. Click **Sign in with GitHub** and choose *Use a personal access token*.
+   Create a token at GitHub → Settings → Developer settings → Fine-grained tokens, for this
+   repository only, with **Contents: Read and write**. (You must be a collaborator on the repo.)
+3. Open **Projects → New Project**, fill in the form, upload a cover photo, and press **Publish**.
+4. Wait about 1–2 minutes. GitHub Actions rebuilds the site, and the new project appears as a new
+   island on the voyage map and as a card, with its own page.
+
+Tips:
+- **Order on the map**: 1 is the first island. Lower numbers come first.
+- **Featured** projects get a red ribbon.
+- **Category** drives the filter buttons (they appear once you have two or more categories).
+- Only the **title** is required. Everything else is optional and has a safe fallback.
+- The same panel edits **Profile and contact** (name, photo, bio, email…) and **Skills**.
+
+## Where things live
+
+| Path | What |
+|---|---|
+| `content/projects/*.md` | One file per project (what the admin panel creates) |
+| `content/profile.json` | Name, poster nickname/bounty, bio, contact details |
+| `content/skills.json` | Skill groups ("crew roles") |
+| `public/uploads/` | Images uploaded through the admin panel |
+| `public/admin/config.yml` | Admin panel form definitions |
+| `lib/content.ts` | Reads `content/` at build time |
+| `components/` | Themed sections (Hero poster, VoyageMap, Skills, Contact…) |
+
+## Contact form
+
+By default the form opens the visitor's email app with the message prefilled. To receive messages
+directly, create a free form at [Formspree](https://formspree.io) or [Web3Forms](https://web3forms.com)
+and paste its URL into **Profile and contact → Form service URL**.
+
+## Develop locally
 
 ```bash
+cd website
 npm install
-npm run dev
+npm run dev      # http://localhost:3000/PF/  (basePath is /PF unless DEPLOY_ENV=custom-domain)
+npm run build    # static site in out/
 ```
 
-Then open `http://localhost:3000`.
+## Deploy
 
-## Build
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds and publishes `website/out`
+to the `gh-pages` branch. `.env.production` sets `DEPLOY_ENV=custom-domain` (no `/PF` prefix).
 
-```bash
-npm run build
-npm run start
-```
-
-## Deploy to GitHub Pages
-
-This project is configured for static export and GitHub Pages deployment.
-
-1. Push to the `main` branch.
-2. In GitHub repository settings, enable Pages from the `gh-pages` branch.
-3. GitHub Actions will build the site and publish the exported `out/` folder.
-
-If you change the repository name, update the `basePath` in `next.config.ts`.
-
-## Structure
-
-- `app/page.tsx` - main page composition + GSAP setup
-- `components/Navbar.tsx` - sticky blurred navbar + active section state
-- `components/Hero.tsx` - full-screen hero with animated entrance
-- `components/About.tsx` - introduction and education section
-- `components/Projects.tsx` - animated project cards
-- `components/Skills.tsx` - skills grid with icon accents
-- `components/Contact.tsx` - contact form and social links
-- `app/globals.css` - global theme and utility classes
+*Fan-inspired design with original artwork. Not affiliated with or endorsed by the creators of One Piece.*

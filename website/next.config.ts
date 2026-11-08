@@ -1,5 +1,7 @@
 ﻿import type { NextConfig } from "next";
 
+const basePath = process.env.DEPLOY_ENV === "custom-domain" ? "" : "/PF";
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   outputFileTracingRoot: __dirname,
@@ -8,7 +10,11 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.DEPLOY_ENV === "custom-domain" ? "" : "/PF",
+  basePath,
+  env: {
+    // Lets plain <img> tags and CMS-uploaded paths work under a basePath.
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
 };
 
 export default nextConfig;

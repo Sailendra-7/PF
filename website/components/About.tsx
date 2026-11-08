@@ -1,59 +1,65 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
+import type { Profile } from "@/lib/content";
+import { asset } from "@/lib/assets";
 
-export default function About() {
+export default function About({ profile }: { profile: Profile }) {
   return (
-    <section id="about" className="section-shell overflow-hidden" data-gsap-reveal data-snap-section>
-      <div className="section-grid-overlay" aria-hidden />
+    <section id="about" className="section-shell">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.7 }}
       >
-        <p className="mb-3 text-xs uppercase tracking-[0.22em] text-accent">About</p>
-        <h2 className="section-title">From classroom models to real-world impact.</h2>
+        <p className="eyebrow">Captain&apos;s Log</p>
+        <h2 className="section-title">An engineer on a mission.</h2>
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, delay: 0.1 }}
-        className="premium-panel mt-8 grid gap-8 rounded-3xl p-7 shadow-glow md:grid-cols-2"
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.8 }}
+        className="parchment mt-10 grid gap-8 rounded-lg border-y-[10px] border-wood p-6 md:grid-cols-[0.8fr_1.2fr] md:gap-12 md:p-10"
       >
-        <div className="mouse-parallax overflow-hidden rounded-2xl border border-white/10" data-depth="0.05">
-          <img
-            src="/profile-about.jpg?v=2"
-            alt="Abstract civil engineering analytics visual"
-            loading="lazy"
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div className="space-y-6">
-          <h3 className="text-2xl font-bold tracking-tight text-white md:text-3xl">
-            AN ENGINEER ON A MISSION.
-          </h3>
-          <p className="muted-copy">
-            I am a civil engineering student with a passion for designing sustainable
-            infrastructure and creating solutions that improve everyday life. I aim to
-            build resilient structures that serve communities and support long-term
-            development.
-          </p>
-          <p className="muted-copy">
-            Currently in my 8th semester at Oxford College of Engineering and
-            Management, I have developed a strong foundation in structural analysis,
-            geotechnical engineering, and construction management. I have worked on
-            projects such as water tank design, foundation systems, and reinforced
-            concrete structures.
-          </p>
-          <p className="muted-copy">
-            I am particularly interested in sustainable construction, smart
-            infrastructure, and efficient resource management. My goal is to contribute
-            to impactful engineering projects that enhance safety, durability, and
-            quality of life.
-          </p>
+        {profile.aboutPhoto ? (
+          <figure className="relative mx-auto w-full max-w-xs -rotate-2 self-start bg-white p-3 pb-10 shadow-card md:max-w-none">
+            <span
+              aria-hidden
+              className="absolute -top-3 left-1/2 h-6 w-20 -translate-x-1/2 rotate-2 bg-straw/70"
+            />
+            <img
+              src={asset(profile.aboutPhoto)}
+              alt={`${profile.name} smiling`}
+              loading="lazy"
+              width={900}
+              height={1200}
+              className="aspect-[4/5] w-full object-cover object-top"
+            />
+            <figcaption className="absolute inset-x-0 bottom-2 text-center font-display text-lg text-ink">
+              {profile.name}
+            </figcaption>
+          </figure>
+        ) : null}
+
+        <div className="space-y-5">
+          <dl className="flex flex-wrap gap-x-8 gap-y-2 border-b-2 border-dashed border-ink/30 pb-4 text-sm">
+            <div>
+              <dt className="text-[0.7rem] font-extrabold uppercase tracking-widest text-flag">Rank</dt>
+              <dd className="font-bold">{profile.semester} Civil Engineering</dd>
+            </div>
+            <div>
+              <dt className="text-[0.7rem] font-extrabold uppercase tracking-widest text-flag">Crew</dt>
+              <dd className="font-bold">{profile.college}</dd>
+            </div>
+          </dl>
+          {profile.bio.map((para, i) => (
+            <p key={i} className="leading-relaxed text-ink/90">
+              {para}
+            </p>
+          ))}
         </div>
       </motion.div>
     </section>

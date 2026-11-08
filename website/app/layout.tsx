@@ -1,42 +1,37 @@
 ﻿import type { Metadata } from "next";
-import { Manrope, Space_Grotesk } from "next/font/google";
+import { Manrope, Pirata_One } from "next/font/google";
 import "./globals.css";
+import { getProfile } from "@/lib/content";
 
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
+  display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const pirata = Pirata_One({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  weight: "400",
+  variable: "--font-pirata",
+  display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Sailendra Kamal | Civil Engineering Portfolio",
-  description:
-    "Portfolio of Sailendra Kamal, a 8th semester Civil Engineering student building resilient infrastructure and data-driven design solutions.",
-  openGraph: {
-    title: "Sailendra Kamal | Civil Engineering Portfolio",
-    description:
-      "A space-tech inspired portfolio featuring projects, skills, and career goals in civil engineering.",
-    type: "website",
-  },
-};
+export function generateMetadata(): Metadata {
+  const p = getProfile();
+  const title = `${p.name} | Civil Engineering Portfolio`;
+  const description = `${p.name}, ${p.role.toLowerCase()} at ${p.college}. ${p.tagline}`;
+  return {
+    title,
+    description,
+    openGraph: { title, description, type: "website" },
+    icons: { icon: "/favicon.svg" },
+  };
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body
-        suppressHydrationWarning
-        className={`${manrope.variable} ${spaceGrotesk.variable} bg-base text-text antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="en" className={`${manrope.variable} ${pirata.variable}`}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

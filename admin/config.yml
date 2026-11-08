@@ -58,6 +58,8 @@ collections:
           - { name: portrait, label: Wanted-poster photo, widget: image }
           - { name: aboutPhoto, label: About photo, widget: image }
           - { name: bio, label: About paragraphs, widget: list }
+          - { name: dream, label: Dream (shown in the pirate profile), widget: string, required: false }
+          - { name: devilFruit, label: Devil Fruit (a joke power name), widget: string, required: false }
           - { name: contactIntro, label: Contact intro text, widget: text }
           - { name: email, label: Email, widget: string }
           - { name: phone, label: Phone, widget: string }

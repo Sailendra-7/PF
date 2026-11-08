@@ -10,10 +10,12 @@ const cards = site.focus.map((front, i) => ({ front, icon: icons[i % icons.lengt
     <p class="mono muted eyebrow reveal"><Sprig />About</p>
     <div class="body">
       <h2 id="about-h" class="serif reveal">{site.tagline}</h2>
-      <div class="cols reveal">
-        {site.bio.map((t) => <p>{t}</p>)}
+      <div class={`intro ${site.photo ? 'with-photo' : ''}`}>
+        {site.photo && <img class="photo reveal" src={asset(site.photo)} alt={`Portrait of ${site.name}`} loading="lazy" width="900" height="1200" />}
+        <div class="cols reveal">
+          {site.bio.map((t) => <p>{t}</p>)}
+        </div>
       </div>
-      {site.photo && <img class="photo reveal" src={asset(site.photo)} alt={`Portrait of ${site.name}`} loading="lazy" width="900" height="1200" />}
       {cards.length > 0 && <ul class="journal reveal" aria-label="Areas of focus">
         {
           cards.map((c, i) => (
@@ -58,11 +60,15 @@ const cards = site.focus.map((front, i) => ({ front, icon: icons[i % icons.lengt
   .cols p {
     margin: 0;
   }
+  .intro {
+    display: grid;
+    gap: 2.5rem;
+  }
   .photo {
     display: block;
     width: min(100%, 22rem);
     height: auto;
-    margin-top: 3rem;
+    margin: 0;
     aspect-ratio: 3 / 4;
     object-fit: cover;
     border-radius: 999px 999px 8px 8px;
@@ -142,6 +148,14 @@ const cards = site.focus.map((front, i) => ({ front, icon: icons[i % icons.lengt
     white-space: nowrap;
   }
   @media (min-width: 900px) {
+    .intro.with-photo {
+      grid-template-columns: 20rem minmax(0, 1fr);
+      gap: 4rem;
+      align-items: start;
+    }
+    .photo {
+      width: 100%;
+    }
     .grid {
       grid-template-columns: 1fr 3fr;
     }

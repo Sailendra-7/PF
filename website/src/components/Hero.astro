@@ -1,0 +1,146 @@
+---
+import { site } from '../data/site';
+---
+
+<header class="hero" data-meadow-view>
+  <div class="shade" aria-hidden="true"></div>
+
+  <div class="copy wrap" id="top">
+    <p class="mono kicker">{site.role}</p>
+    <h1 class="serif">{site.name}</h1>
+    <p class="lede">{site.tagline} {site.intro}</p>
+    <p class="actions">
+      <a class="btn primary mono" href="#work">Selected work <span aria-hidden="true">↓</span></a>
+      <a class="btn mono" href="#contact">Get in touch <span aria-hidden="true">→</span></a>
+    </p>
+  </div>
+  <p class="mono foot wrap">{site.college}{site.semester ? ' · ' + site.semester : ''}</p>
+</header>
+
+<style>
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100svh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    color: var(--ink);
+  }
+  /* Only the lower edge is darkened, so the small caption reads over the grass; the sky stays untouched */
+  .shade {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 28%;
+    background: linear-gradient(to bottom, transparent, rgb(30 34 20 / 0.55));
+    pointer-events: none;
+  }
+  .copy {
+    align-self: start;
+    padding-top: clamp(6rem, 15vh, 9rem);
+  }
+  .kicker {
+    margin: 0 0 1.25rem;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(3rem, 9.5vw, 8rem);
+    max-width: 10ch;
+  }
+  .lede {
+    max-width: 40ch;
+    margin: 1.5rem 0 0;
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 2rem 0 0;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    padding: 0 1.25rem;
+    text-decoration: none;
+    background: #f1e9d6;
+    color: #231e14;
+    border: 1px solid #231e14;
+    transition:
+      background-color 0.4s var(--ease),
+      color 0.4s var(--ease);
+  }
+  .btn.primary {
+    background: #1a170d;
+    color: #f1e9d6;
+    border-color: #1a170d;
+  }
+  .btn:hover {
+    background: var(--straw);
+    color: #1a170d;
+    border-color: #1a170d;
+  }
+  /* night: a pale moonlit button for the main action, a dark glass-free outline for the second */
+  :global([data-theme='night']) .btn {
+    background: rgb(10 13 11 / 0.6);
+    color: #e6e8de;
+    border-color: rgb(230 232 222 / 0.6);
+  }
+  :global([data-theme='night']) .btn.primary {
+    background: #e6e8de;
+    color: #0a0d0b;
+    border-color: #e6e8de;
+  }
+  :global([data-theme='night']) .btn:hover {
+    background: var(--straw);
+    color: #0a0d0b;
+    border-color: var(--straw);
+  }
+  .foot {
+    position: relative;
+    margin-block: 0;
+    padding-block: 1.75rem;
+    color: var(--parchment);
+  }
+  .sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .copy > *,
+    .foot {
+      animation: rise 1.6s var(--ease) both;
+    }
+    .copy > :nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    .copy > :nth-child(2) {
+      animation-delay: 0.28s;
+    }
+    .copy > :nth-child(3) {
+      animation-delay: 0.5s;
+    }
+    .copy > :nth-child(4) {
+      animation-delay: 0.7s;
+    }
+    .foot {
+      animation-delay: 0.9s;
+    }
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translate3d(0, 18px, 0);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+</style>

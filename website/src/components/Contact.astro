@@ -1,0 +1,179 @@
+---
+import Sprig from './Sprig.astro';
+import { site, asset } from '../data/site';
+---
+
+<section id="contact" class="contact" aria-labelledby="contact-h" data-meadow-view data-meadow-dusk>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="wrap copy reveal">
+    <p class="mono eyebrow"><Sprig />Contact</p>
+    <h2 id="contact-h" class="serif">Let's build something that lasts.</h2>
+    <p class="joke">{site.contactIntro}</p>
+    <p class="mail"><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    <ul class="mono links">
+      {site.phone && <li><a href={`tel:${site.phone.replace(/[^+\d]/g, '')}`}>{site.phone}</a></li>}
+      {site.linkedin && <li><a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>}
+      {site.cv && <li><a href={asset(site.cv)} download>Résumé (PDF)</a></li>}
+    </ul>
+  </div>
+  <div class="flies" data-flies aria-hidden="true"></div>
+</section>
+
+<style>
+  .contact {
+    position: relative;
+    z-index: 1;
+    min-height: 100svh;
+    display: grid;
+    align-items: start;
+    color: var(--parchment);
+    padding-block: var(--section-y) 4rem;
+  }
+  /* The sky at dusk is dark overhead and bright at the horizon: keep the copy in the dark, let the grass stay clear */
+  .veil {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgb(26 23 13 / 0.72), rgb(26 23 13 / 0.45) 38%, transparent 62%),
+      linear-gradient(95deg, rgb(26 23 13 / 0.4), transparent 60%);
+    pointer-events: none;
+  }
+  .copy {
+    position: relative;
+  }
+  h2 {
+    margin: 1.5rem 0 2rem;
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    max-width: 14ch;
+  }
+  .mail {
+    margin: 0 0 2.5rem;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    overflow-wrap: anywhere;
+  }
+  .joke {
+    margin: 0 0 2rem;
+    opacity: 0.9;
+    max-width: 42ch;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .links a {
+    display: inline-block;
+    padding-block: 0.6rem;
+  }
+</style>
+
+<style is:global>
+  /* fireflies live inside the contact section only and are clipped to it */
+  .flies {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .fly {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    margin: -2.5px 0 0 -2.5px;
+    border-radius: 50%;
+    background: #fff1a8;
+    box-shadow: 0 0 6px 2px rgb(255 230 120 / 0.85), 0 0 18px 6px rgb(255 214 90 / 0.3);
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+</style>
+
+<script>
+  // Fireflies wander over the grass, each on its own slow, curving path, blinking on and off with its own rhythm.
+  // They are made only while the contact section is on screen and live inside it, so nothing strays onto other sections.
+  const section = document.querySelector<HTMLElement>('#contact');
+  const layer = document.querySelector<HTMLElement>('[data-flies]');
+  const ok = window.matchMedia('(prefers-reduced-motion: no-preference)');
+  const rnd = (a: number, b: number) => a + Math.random() * (b - a);
+  const MAX = 9;
+  let timer = 0;
+  let count = 0;
+  let visible = false;
+
+  function spawn() {
+    if (!layer || !visible || count >= MAX) return;
+    const w = layer.clientWidth;
+    const h = layer.clientHeight;
+    const el = document.createElement('span');
+    el.className = 'fly';
+    const size = rnd(3.5, 6);
+    el.style.width = el.style.height = `${size}px`;
+    el.style.margin = `${-size / 2}px 0 0 ${-size / 2}px`;
+    layer.append(el);
+    count++;
+
+    // a meandering path: a handful of waypoints, each a short, slightly random hop from the last, lower part of the section favoured
+    let x = rnd(0.04, 0.96) * w;
+    let y = rnd(0.45, 0.95) * h;
+    let heading = rnd(0, Math.PI * 2);
+    const steps = Math.round(rnd(7, 12));
+    const path: Keyframe[] = [];
+    for (let i = 0; i <= steps; i++) {
+      path.push({ transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)` });
+      heading += rnd(-1.1, 1.1);
+      const hop = rnd(25, 80);
+      x = Math.min(Math.max(x + Math.cos(heading) * hop, 0), w);
+      y = Math.min(Math.max(y + Math.sin(heading) * hop * 0.6 - 4, h * 0.3), h * 0.97);
+    }
+    const life = rnd(14000, 26000);
+    const move = el.animate(path, { duration: life, easing: 'ease-in-out', fill: 'forwards' });
+
+    // blink: glow up, hold a moment, fade, wait in the dark; the dark gap is longer than the lit part
+    const lit = rnd(900, 1800);
+    const dark = rnd(1400, 4200);
+    const cycle = lit + dark;
+    const blink = el.animate(
+      [
+        { opacity: 0, offset: 0 },
+        { opacity: 1, offset: (lit * 0.3) / cycle },
+        { opacity: 0.85, offset: (lit * 0.6) / cycle },
+        { opacity: 0, offset: lit / cycle },
+        { opacity: 0, offset: 1 },
+      ],
+      { duration: cycle, iterations: Math.ceil(life / cycle) + 1, delay: rnd(0, 2500), easing: 'ease-in-out' },
+    );
+    const end = () => {
+      move.cancel();
+      blink.cancel();
+      el.remove();
+      count--;
+    };
+    move.onfinish = end;
+  }
+
+  function schedule() {
+    timer = window.setTimeout(() => {
+      if (visible) spawn();
+      schedule();
+    }, rnd(700, 3800));
+  }
+
+  if (section && layer) {
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting && ok.matches;
+      clearTimeout(timer);
+      if (visible) {
+        const first = Math.round(rnd(2, 4));
+        for (let i = 0; i < first; i++) window.setTimeout(spawn, i * rnd(300, 1400));
+        schedule();
+      } else {
+        layer.replaceChildren();
+        count = 0;
+      }
+    }, { threshold: 0.15 }).observe(section);
+  }
+</script>

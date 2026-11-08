@@ -1,0 +1,42 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="on-dark edge-grass">
+  <div class="wrap row mono muted">
+    <span>© {new Date().getFullYear()} {site.name}</span>
+    <span class="credit">Meadow drawn live in the browser with <a href="https://threejs.org" rel="noopener noreferrer">three.js</a></span>
+    <a href="#top">Back to top (the grass is nicer up there)</a>
+  </div>
+</footer>
+
+<style>
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 2rem;
+  }
+  a {
+    text-decoration: none;
+    padding-block: 0.5rem;
+  }
+  .credit a {
+    text-decoration: underline;
+  }
+  .row {
+    flex-wrap: wrap;
+  }
+  .joke {
+    margin: -0.75rem auto 0;
+    padding-bottom: 1rem;
+    text-transform: none;
+    letter-spacing: 0.03em;
+    font-style: italic;
+  }
+  .hi {
+    margin-top: 0;
+    padding-bottom: 2rem;
+    font-style: normal;
+  }
+</style>

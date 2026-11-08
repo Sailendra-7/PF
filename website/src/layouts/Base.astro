@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+import { site, title as siteTitle, asset } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+const { title = siteTitle, description = site.description, path = '' } = Astro.props;
+const canonical = site.url ? new URL(path, site.url).href : '';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: site.role,
+  url: site.url || undefined,
+  email: site.email,
+  sameAs: [site.linkedin].filter(Boolean),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href={asset("/favicon.svg")} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="theme-color" content="#1a170d" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Theme before first paint: the saved choice, else the system preference
+      (function () {
+        var t;
+        try {
+          t = localStorage.getItem('theme');
+        } catch (e) {}
+        if (t !== 'night' && t !== 'day') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+        document.documentElement.dataset.theme = t;
+        var m = document.querySelector('meta[name=theme-color]');
+        if (m) m.content = t === 'night' ? '#0a0d0b' : '#1a170d';
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <slot />
+    <script>
+      const els = document.querySelectorAll<HTMLElement>('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -10% 0px' },
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('in'));
+      }
+    </script>
+  </body>
+</html>

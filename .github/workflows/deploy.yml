@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: website/.nvmrc
           cache: npm
           cache-dependency-path: website/package-lock.json
 
@@ -33,11 +33,11 @@ jobs:
         run: npm run build
 
       - name: Add nojekyll marker
-        run: touch website/out/.nojekyll
+        run: touch website/dist/.nojekyll
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: website/out
+          publish_dir: website/dist

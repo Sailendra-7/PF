@@ -27,6 +27,5 @@ order: 2
 slug: hill-road-maulakalika
 ---
 
-A detailed survey and road design project covering the route from the base of
-Maulakalika Temple to the temple area, including route planning and geometric
-design considerations.
+- [https://drive.google.com/file/d/16oYmRxHsZzFUNzM2s65deb1rimrjp20o/view?usp=sharing](https://drive.google.com/file/d/16oYmRxHsZzFUNzM2s65deb1rimrjp20o/view?usp=sharing)
+- [https://drive.google.com/file/d/1PRsgxdoCcFB5VjpjiVeMsm3D2fFdiW5w/view?usp=drive_link](https://drive.google.com/file/d/1PRsgxdoCcFB5VjpjiVeMsm3D2fFdiW5w/view?usp=drive_link)

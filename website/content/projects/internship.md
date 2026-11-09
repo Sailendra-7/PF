@@ -1,6 +1,6 @@
 ---
 title: Internship
-category: Structural
+category: Other
 summary: The internship significantly boosted my confidence and prepared me to take on professional responsibilities in civil engineering. It offered valuable hands-on experience in both office-based design and estimation work, as well as field-based engineering activities. This experience motivated me to continue developing my technical knowledge and professional skills.
 cover: /uploads/Screenshot 2026-08-24 140817.png
 location: Orchid Planners, Bharatpur, Chitwan

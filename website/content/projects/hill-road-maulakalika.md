@@ -21,6 +21,7 @@ gallery:
   - /uploads/IMG_20251223_141535.jpg
   - /uploads/Screenshot 2026-11-09 133702.png
   - /uploads/Screenshot 2026-11-09 133721.png
+  - /uploads/Screenshot 2026-11-09 134836.png
 featured: true
 order: 2
 slug: hill-road-maulakalika
